@@ -1,4 +1,15 @@
 name: StellarCore
 version: '${project.version}'
 main: net.stellar.stellarcore.StellarCore
+description: Stellar Core Plugin.
 load: STARTUP
+depend: [SkillAPI]
+commands:
+  npcadd:
+    description: Adds an NPC UUID to the database, and a required level.
+  npcdel:
+    description: Removes an NPC UUID from the database, and required level.
+  npcgetitem:
+    description: Gives the different items for npc level utilities.
+  clanlist:
+    description: Gives every clan available.

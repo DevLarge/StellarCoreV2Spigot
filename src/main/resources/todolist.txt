@@ -2,20 +2,22 @@ Name: Stellar Core
 Ver: 1.12.2
 
 Plugins included in StellarCore:
-DeluxeHub
-DeluxeAnnounce
-ChatReactions
-VoidWorld
-Banitem
-Altfinder
-AntiVPN
-VanishPlugin
 
-ChatManager?
-WorldGuard?
-CratesPlus?
-GreatKits?
-ClearLag??
+
+DeluxeHub https://github.com/ItsLewizzz/DeluxeHub
+DeluxeAnnounce decomp https://www.spigotmc.org/resources/deluxe-announce-player-avatar-more.69142/
+ChatReactions decomp https://www.spigotmc.org/resources/chatreaction.3748/
+VoidWorld https://github.com/chaseoes/VoidWorld depends on https://github.com/Multiverse/Multiverse-Core
+Banitem https://github.com/Andross96/BanItem
+Altfinder https://github.com/EarthMC/AltFinder/tree/master
+AntiVPN https://github.com/Laarryy/Anti-VPN
+VanishPlugin https://github.com/LeonMangler/SuperVanish
+
+ChatManager? https://github.com/Crazy-Crew/ChatManager
+WorldGuard? https://github.com/EngineHub/WorldGuard
+CratesPlus? https://github.com/ConnorLinfoot/CratesPlus/
+GreatKits? decomp https://www.spigotmc.org/resources/greatkits-1-7-1-13-full-config-kits-plugin-save-and-load-inventory-with-commands.44535/
+ClearLag? decomp https://www.spigotmc.org/resources/clearlagg.68271/
 
 What we need from each plugin:
 
