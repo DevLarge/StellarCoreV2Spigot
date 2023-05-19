@@ -1,0 +1,36 @@
+Name: Stellar Core
+Ver: 1.12.2
+
+Plugins included in StellarCore:
+DeluxeHub
+DeluxeAnnounce
+ChatReactions
+VoidWorld
+Banitem
+Altfinder
+AntiVPN
+VanishPlugin
+
+ChatManager?
+WorldGuard?
+CratesPlus?
+GreatKits?
+ClearLag??
+
+What we need from each plugin:
+
+DeluxeHub - This plugin does chat timed announcements well. We need those in the jsonbroadcast format.
+DeluxeAnnounce - This Plugin handles the Tab List configuration, we need that configuration.
+ChatReactions - I want a copy of this plugin, in stellar core.
+VoidWorld - this plugin hooks into Multiverse Core and generates a void world.
+Banitem - This plugin needs to be able to ban specific items, based on group, region and permissions, for example
+- Group Meaning, certain pex groups can't access certain items, region meaning in certain regions items can't be used
+- Permission meaning certain staff perms cannot use certain items. Ex: Admin can't use NPC wand.
+AltFinder - Plugin that identifies peoples alt accounts
+AntiVPN - Plugin that doesn't allow VPNs
+VanishPlugin - Plugin that vanishes staff without putting them in fucking invisibility 2.
+
+ChatManager - A Plugin like ChatEX that can handle the chat formats.
+WorldGuard - I'd like to change this plugin, so that we can make circular regions, this needs to be talked about, but it is open source.
+CratesPlus - Crates Manager
+GreatKits - Kits Manager
