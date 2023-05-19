@@ -1,0 +1,4 @@
+name: StellarCore
+version: '${project.version}'
+main: net.stellar.stellarcore.StellarCore
+load: STARTUP
