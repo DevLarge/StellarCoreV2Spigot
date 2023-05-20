@@ -14,7 +14,6 @@ public final class StellarCore extends JavaPlugin {
         saveDefaultConfig();
         this.skillAPIAddon = new SkillAPIAddon(this);
         FileManager.initFiles();
-        // TESTIJNG
     }
 
     @Override
