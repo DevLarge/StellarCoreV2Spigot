@@ -1,1 +1,2 @@
-skillapiaddon: true
+child_plugins:
+  skillapiaddon: true

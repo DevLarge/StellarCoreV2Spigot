@@ -6,107 +6,136 @@ No other versions are to be created from SkillAPI Addon, unless you specifically
 Copyright (C) 2023 DevLarge
 */
 
+import net.stellar.stellarcore.StellarCore;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class FileManager {
 
     private static File fileNpcData;
     private static File fileNpcVillageData;
-    private static YamlConfiguration yamlConfigurationNpcData;
-    private static YamlConfiguration yamlConfigurationNpcVillageData;
+    private static File fileAnnouncements;
+    private static YamlConfiguration yamlNpcData;
+    private static YamlConfiguration yamlNpcVillageData;
+    private static YamlConfiguration yamlAnnouncements;
 
-    public static void initFiles() {
-        fileNpcData = new File(Bukkit.getServer().getPluginManager().getPlugin("StellarCore").getDataFolder(), "npcdata.yml");
-        fileNpcVillageData = new File(Bukkit.getServer().getPluginManager().getPlugin("StellarCore").getDataFolder(), "npcvillagedata.yml");
+    public static void initFiles(StellarCore stellarCore) {
+        stellarCore.getConfig().options().copyDefaults();
+        stellarCore.saveDefaultConfig();
+        File dataFolder = Bukkit.getServer().getPluginManager().getPlugin("StellarCore").getDataFolder();
+        File npcFolder = new File(dataFolder, "data");
+        if (!npcFolder.exists()) npcFolder.mkdir();
 
-        if (!fileNpcData.exists()) {
-            try {
-                fileNpcData.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
+        fileNpcData = new File(npcFolder, "npcdata.yml");
+        fileNpcVillageData = new File(npcFolder, "npcvillagedata.yml");
+        fileAnnouncements = new File(dataFolder, "announcements.yml");
+
+        for (File f : Arrays.asList(fileNpcData, fileNpcVillageData, fileAnnouncements)) {
+            if (!f.exists()) {
+                try {
+                    f.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
-        if (!fileNpcVillageData.exists()) {
-            try {
-                fileNpcVillageData.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        yamlConfigurationNpcData = YamlConfiguration.loadConfiguration(fileNpcData);
-        yamlConfigurationNpcVillageData = YamlConfiguration.loadConfiguration(fileNpcVillageData);
 
+        yamlNpcData = YamlConfiguration.loadConfiguration(fileNpcData);
+        yamlNpcVillageData = YamlConfiguration.loadConfiguration(fileNpcVillageData);
+        yamlAnnouncements = YamlConfiguration.loadConfiguration(fileAnnouncements);
+
+        checkFiles();
     }
 
-    public static void saveFileNpcData() {
+    private static void checkFiles() {
+        if (!yamlAnnouncements.contains("announcements")) {
+            yamlAnnouncements.set("enabled", true);
+            yamlAnnouncements.set("delay", 60);
+            yamlAnnouncements.set("required_players", 1);
+            yamlAnnouncements.set("sound.enabled", true);
+            yamlAnnouncements.set("sound.volume", 1.0);
+            yamlAnnouncements.set("sound.pitch", 1.0);
+            List<String> list1 = Arrays.asList("&r", "<center>&e&lANNOUNCEMENT</center>", "<center>&7Rate this plugin 5 stars on Spigot!</center>", "&r");
+            yamlAnnouncements.set("announcements.list1", list1);
+            List<String> list2 = Arrays.asList("&r", "<center>&e&lANNOUNCEMENT</center>", "<center>&7This plugin was created by &eGAY TYPICAL</center>", "&r");
+            yamlAnnouncements.set("announcements.list2", list2);
+            saveAnnouncements();
+        }
+    }
+
+    public static void saveNpcData() {
         try {
-            FileManager.yamlConfigurationNpcData.save(fileNpcData);
+            FileManager.yamlNpcData.save(fileNpcData);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void saveFileNpcVillageData() {
+    public static void saveNpcVillageData() {
         try {
-            FileManager.yamlConfigurationNpcVillageData.save(fileNpcVillageData);
+            FileManager.yamlNpcVillageData.save(fileNpcVillageData);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void saveAnnouncements() {
+        try {
+            FileManager.yamlAnnouncements.save(fileAnnouncements);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public static String getNpcLevel(String npcUuid) {
-        if (!getYamlConfigurationNpcData().contains(npcUuid)) {
+        if (!getNpcData().contains(npcUuid)) {
             return "null";
         } else {
-            return getYamlConfigurationNpcData().get(npcUuid).toString();
+            return getNpcData().get(npcUuid).toString();
         }
 
     }
 
     public static String getNpcVillage(String npcUuid) {
-        if (!getYamlConfigurationNpcVillageData().contains(npcUuid)) {
+        if (!getNpcVillageData().contains(npcUuid)) {
             return "null";
         } else {
-            return getYamlConfigurationNpcVillageData().get(npcUuid).toString();
+            return getNpcVillageData().get(npcUuid).toString();
         }
     }
 
     public static void addNpc(String npcUuid, int levelRequired) {
-        getYamlConfigurationNpcData().set(npcUuid, levelRequired);
-        saveFileNpcData();
+        getNpcData().set(npcUuid, levelRequired);
+        saveNpcData();
     }
 
     public static void delNpc(String npcUuid) {
-        getYamlConfigurationNpcData().set(npcUuid, null);
-        saveFileNpcData();
+        getNpcData().set(npcUuid, null);
+        saveNpcData();
     }
 
     public static void addNpcVillage(String uuid, String village) {
-        getYamlConfigurationNpcVillageData().set(uuid, village);
-        saveFileNpcVillageData();
+        getNpcVillageData().set(uuid, village);
+        saveNpcVillageData();
     }
     public static void delNpcVillage(String uuid) {
-        getYamlConfigurationNpcVillageData().set(uuid, null);
-        saveFileNpcVillageData();
+        getNpcVillageData().set(uuid, null);
+        saveNpcVillageData();
     }
 
-    public static File getFileNpcData() {
-        return fileNpcData;
+    public static YamlConfiguration getNpcData() {
+        return yamlNpcData;
     }
 
-    public static YamlConfiguration getYamlConfigurationNpcData() {
-        return yamlConfigurationNpcData;
+    public static YamlConfiguration getNpcVillageData() {
+        return yamlNpcVillageData;
     }
-
-    public static File getFileNpcVillageData() {
-        return fileNpcVillageData;
-    }
-
-    public static YamlConfiguration getYamlConfigurationNpcVillageData() {
-        return yamlConfigurationNpcVillageData;
+    public static YamlConfiguration getAnnouncements() {
+        return yamlAnnouncements;
     }
 }

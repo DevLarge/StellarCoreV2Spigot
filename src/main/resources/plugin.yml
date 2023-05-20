@@ -1,4 +1,4 @@
-name: StellarCore
+name: '${project.name}'
 version: '${project.version}'
 main: net.stellar.stellarcore.StellarCore
 description: Stellar Core Plugin.
