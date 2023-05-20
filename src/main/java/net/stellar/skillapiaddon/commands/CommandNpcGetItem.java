@@ -6,9 +6,10 @@ No other versions are to be created from SkillAPI Addon, unless you specifically
 Copyright (C) 2023 DevLarge
 */
 
-import net.stellar.stellarcore.utils.ChatUtil;
+import net.stellar.stellarcore.utils.Items;
 import net.stellar.stellarcore.utils.Permissions;
 import net.stellar.stellarcore.utils.Values;
+import net.stellar.stellarcore.utils.chat.ChatUtil;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -22,7 +23,7 @@ import java.util.Collections;
 
 public class CommandNpcGetItem implements CommandExecutor {
 
-    private final String USAGE = "&cNeed arguments! <id/add/del/village>";
+    private final String USAGE = ChatUtil.color("&cNeed arguments! <id/add/del/village>");
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
         if (!(sender instanceof Player)) return false;
@@ -35,7 +36,7 @@ public class CommandNpcGetItem implements CommandExecutor {
             return false;
         }
         if (args.length == 0) {
-            player.sendMessage(Values.PREFIX + ChatUtil.color(USAGE));
+            player.sendMessage(Values.PREFIX + USAGE);
             return false;
         }
 
@@ -61,7 +62,7 @@ public class CommandNpcGetItem implements CommandExecutor {
         ItemStack itemNpcId = new ItemStack(Material.COMPASS, 1);
         ItemMeta itemMeta = itemNpcId.getItemMeta();
 
-        itemMeta.setLocalizedName(Values.ITEM_NPC_ID_NAME);
+        itemMeta.setLocalizedName(Items.ITEM_NPC_ID_NAME);
         itemMeta.setDisplayName(ChatUtil.color("&bNpc Id"));
         itemMeta.setLore(Collections.singletonList(ChatUtil.color("Right-click to get the NPC ID")));
         itemNpcId.setItemMeta(itemMeta);
@@ -73,7 +74,7 @@ public class CommandNpcGetItem implements CommandExecutor {
         ItemStack itemNpcId = new ItemStack(Material.BOOK, 1);
         ItemMeta itemMeta = itemNpcId.getItemMeta();
 
-        itemMeta.setLocalizedName(Values.ITEM_NPC_ADD_NAME);
+        itemMeta.setLocalizedName(Items.ITEM_NPC_ADD_NAME);
         itemMeta.setDisplayName(ChatUtil.color( "&b&5Npc Adder"));
         itemMeta.setLore(Collections.singletonList(ChatUtil.color( "Right-click to add a level requirement")));
         itemNpcId.setItemMeta(itemMeta);
@@ -85,7 +86,7 @@ public class CommandNpcGetItem implements CommandExecutor {
         ItemStack itemNpcId = new ItemStack(Material.BARRIER, 1);
         ItemMeta itemMeta = itemNpcId.getItemMeta();
 
-        itemMeta.setLocalizedName(Values.ITEM_NPC_DEL_NAME);
+        itemMeta.setLocalizedName(Items.ITEM_NPC_DEL_NAME);
         itemMeta.setDisplayName(ChatUtil.color("&b&cNpc Deleter"));
         itemMeta.setLore(Collections.singletonList(ChatUtil.color( "Right-click to delete the level requirement")));
         itemNpcId.setItemMeta(itemMeta);
@@ -97,7 +98,7 @@ public class CommandNpcGetItem implements CommandExecutor {
         ItemStack itemNpcVillage = new ItemStack(Material.END_ROD, 1);
         ItemMeta itemMeta = itemNpcVillage.getItemMeta();
 
-        itemMeta.setLocalizedName(Values.ITEM_NPC_VILLAGE);
+        itemMeta.setLocalizedName(Items.ITEM_NPC_VILLAGE);
         itemMeta.setDisplayName(ChatUtil.color( "&b&2Npc Village selector"));
         itemMeta.setLore(Collections.singletonList(ChatUtil.color( "Right-click to set the village of the NPC")));
         itemNpcVillage.setItemMeta(itemMeta);

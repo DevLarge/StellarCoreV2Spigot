@@ -1,4 +1,4 @@
-package net.stellar.stellarcore.utils;
+package net.stellar.stellarcore.utils.chat;
 
 /*
 The code in class ChatUtil, is not to be used by anyone, without legitimate permission from https://github.com/DevLarge, Oscar#8373. 

@@ -8,9 +8,10 @@ Copyright (C) 2023 DevLarge
 
 import com.sucy.skill.SkillAPI;
 import com.sucy.skill.api.player.PlayerData;
+import net.stellar.stellarcore.utils.Items;
 import net.stellar.stellarcore.utils.Permissions;
 import net.stellar.stellarcore.utils.Values;
-import net.stellar.stellarcore.utils.ChatUtil;
+import net.stellar.stellarcore.utils.chat.ChatUtil;
 import net.stellar.stellarcore.utils.FileManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -37,7 +38,7 @@ public class ListenerOnEntityInteract implements Listener {
             return;
         }
         int level = playerData.getMainClass().getLevel();
-        if (!FileManager.getYamlConfigurationNpcData().contains(uuid)) {
+        if (!FileManager.getNpcData().contains(uuid)) {
             return;
         }
 
@@ -53,7 +54,7 @@ public class ListenerOnEntityInteract implements Listener {
         PlayerData playerData = SkillAPI.getPlayerData(Bukkit.getOfflinePlayer(player.getUniqueId()));
         String uuid = event.getRightClicked().getUniqueId().toString();
         String playerVillage = playerData.getMainClass().getData().getName();
-        if (!FileManager.getYamlConfigurationNpcData().contains(uuid)) {
+        if (!FileManager.getNpcData().contains(uuid)) {
             return;
         }
 
@@ -76,15 +77,15 @@ public class ListenerOnEntityInteract implements Listener {
         String localizedName = player.getInventory().getItemInMainHand().getItemMeta().getLocalizedName();
 
         switch (localizedName) {
-            case Values.ITEM_NPC_ID_NAME:
-                if (FileManager.getYamlConfigurationNpcData().contains(uuid)) {
+            case Items.ITEM_NPC_ID_NAME:
+                if (FileManager.getNpcData().contains(uuid)) {
                     level = FileManager.getNpcLevel(uuid);
                 } else {
                     player.sendMessage(Values.PREFIX + "The entity level has not been registered!");
                     level = "null";
                 }
 
-                if (FileManager.getYamlConfigurationNpcVillageData().contains(uuid)) {
+                if (FileManager.getNpcVillageData().contains(uuid)) {
                     village = FileManager.getNpcVillage(uuid);
                 } else {
                     player.sendMessage(Values.PREFIX + "The entity village has not been registered!");
@@ -98,17 +99,17 @@ public class ListenerOnEntityInteract implements Listener {
                 player.sendMessage(Values.PREFIX + "Copied to clipboard");
                  */
                 break;
-            case Values.ITEM_NPC_ADD_NAME:
+            case Items.ITEM_NPC_ADD_NAME:
                 promptMap.put(player, uuid);
                 player.sendMessage(Values.PREFIX + ChatUtil.color(uuid + " Has been added to the database \n" +
                         "Please Enter NPC Level Requirement: "));
                 break;
-            case Values.ITEM_NPC_DEL_NAME:
+            case Items.ITEM_NPC_DEL_NAME:
                 FileManager.delNpc(uuid);
                 FileManager.delNpcVillage(uuid);
                 player.sendMessage(Values.PREFIX + ChatUtil.color("&cThe npc: &f" + uuid + " &cno longer has a level requirement or a village!"));
                 break;
-            case Values.ITEM_NPC_VILLAGE:
+            case Items.ITEM_NPC_VILLAGE:
                 promptVillageMap.put(player, uuid);
                 player.sendMessage(Values.PREFIX + ChatUtil.color(uuid + " Has been added to the database \n" +
                         "Please Enter NPC Village: "));
